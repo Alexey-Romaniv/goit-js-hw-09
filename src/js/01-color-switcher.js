@@ -4,6 +4,13 @@ const createColorSwitcher = (startButtonSelector, stopButtonSelector) => {
 
   let currentInterval = null;
 
+  const stop = () => {
+    startButton.removeAttribute('disabled');
+    stopButton.setAttribute('disabled', 'true');
+
+    clearInterval(currentInterval);
+  };
+
   const start = () => {
     startButton.setAttribute('disabled', 'true');
     stopButton.removeAttribute('disabled');
@@ -12,21 +19,8 @@ const createColorSwitcher = (startButtonSelector, stopButtonSelector) => {
       document.body.style.backgroundColor = getRandomHexColor();
     }, 1000);
   };
-
-  const stop = () => {
-    startButton.removeAttribute('disabled');
-    stopButton.setAttribute('disabled', 'true');
-
-    clearInterval(currentInterval);
-  };
-
   startButton.addEventListener('click', start);
   stopButton.addEventListener('click', stop);
-
-  return {
-    start,
-    stop,
-  };
 };
 
 const colorSwitcher = createColorSwitcher(

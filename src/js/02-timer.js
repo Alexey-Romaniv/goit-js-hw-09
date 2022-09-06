@@ -10,7 +10,11 @@ let selectedTime = null;
 startBtn.setAttribute('disabled', true);
 timer.style.display = 'flex';
 timer.style.gap = '10px';
-timeValue.forEach(el => (el.style.display = 'block'));
+timeValue.forEach(el => {
+  el.style.display = 'block';
+  el.style.fontSize = '25px';
+  el.style.textAlign = 'center';
+});
 
 const options = {
   enableTime: true,
@@ -19,7 +23,6 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     selectedTime = selectedDates[0].getTime();
-    console.log(selectedTime);
     if (selectedTime <= Date.now()) {
       startBtn.setAttribute('disabled', true);
       Notify.failure('Please choose a date in the future');
@@ -38,13 +41,12 @@ function startTimer() {
     const currentTime = Date.now();
     const deltaTime = selectedTime - currentTime;
     const { days, hours, minutes, seconds } = convertMs(deltaTime);
-    timeValue[0].textContent = days;
-    timeValue[1].textContent = hours;
-    timeValue[2].textContent = minutes;
-    timeValue[3].textContent = seconds;
-    console.log(deltaTime);
+    const arrayConvertMs = [days, hours, minutes, seconds];
+    arrayConvertMs.forEach((el, i) => (timeValue[i].textContent = el));
+
     if (selectedTime <= currentTime) {
       clearInterval(timer);
+      timeValue.forEach(el => (el.textContent = '00'));
     }
   }, 1000);
 }
