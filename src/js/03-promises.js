@@ -20,7 +20,7 @@ const formRef = document.querySelector('.form');
 formRef.addEventListener('submit', e => {
   e.preventDefault();
   let { amount, step, delay } = e.target.elements;
-  delayNum = +delay.value;
+  let delayNum = +delay.value;
   // Это конечно костыль, но единственный рабочий вариант, так как сначала знаение идёт строкой , а на 34 рядке нам надо число добавить к перемнной
   for (let i = 1; i <= +amount.value; i++) {
     createPromise(i, delayNum)
